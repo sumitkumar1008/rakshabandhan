@@ -195,7 +195,6 @@
     <script>
         const card = document.getElementById('greeting-card');
         const video = document.getElementById('rakhi-video');
-        const audio = document.getElementById('rakhi-audio');
         const playOverlay = document.getElementById('play-overlay');
         const confettiContainer = document.getElementById('confetti-container');
         const bgElementsContainer = document.getElementById('background-elements');
@@ -204,10 +203,7 @@
         // --- Video Play Logic ---
         playOverlay.addEventListener('click', () => {
             playOverlay.style.opacity = '0'; // Hide the overlay
-            video.play().then(() => {
-                audio.currentTime = 0;
-                audio.play();
-            }).catch(error => {
+            video.play().catch(error => {
                 console.error("Video play failed:", error);
                 playOverlay.style.opacity = '1'; // Show overlay again if play fails
             });
@@ -215,8 +211,6 @@
 
         // --- Card Flip on Video End ---
         video.addEventListener('ended', () => {
-            audio.pause();
-            audio.currentTime = 0;
             if (isCardOpen) return;
             card.classList.add('is-flipped');
             isCardOpen = true;
